@@ -1,0 +1,18 @@
+{
+  "name": "cloudarc-portfolio",
+  "version": "1.0.0",
+  "description": "CloudArc — Cloud Computing Professional Portfolio",
+  "main": "main.js",
+  "scripts": {
+    "start": "live-server --port=5500 --open=/index.html",
+    "dev": "live-server --port=5500 --open=/index.html",
+    "serve": "live-server --port=5500 --no-browser"
+  },
+  "keywords": ["portfolio", "cloud", "glassmorphism"],
+  "author": "CloudArc",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
