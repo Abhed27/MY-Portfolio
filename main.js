@@ -786,57 +786,6 @@
   // Init after DOM
   initProjectDiagrams();
 
-  // ============================================
-  // DATA STREAM — Flowing line between sections
-  // ============================================
-  const streamSvg = document.getElementById('data-stream');
-  const streamPath = document.getElementById('stream-path');
-
-  function updateDataStream() {
-    if (!streamSvg || !streamPath) return;
-    const sections = ['hero', 'about', 'projects', 'education', 'certifications', 'contact'];
-    const waypoints = [];
-
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        const scrollTop = window.scrollY;
-        const x = window.innerWidth / 2 - 100; // Shift left to avoid centered titles
-        const y = scrollTop + rect.top + rect.height / 2;
-        waypoints.push({ x, y });
-      }
-    });
-
-    if (waypoints.length < 2) return;
-
-    // Set SVG size
-    const docHeight = document.documentElement.scrollHeight;
-    streamSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${docHeight}`);
-    streamSvg.style.height = docHeight + 'px';
-
-    // Build smooth path
-    let d = `M ${waypoints[0].x} ${waypoints[0].y}`;
-    for (let i = 1; i < waypoints.length; i++) {
-      const prev = waypoints[i - 1];
-      const curr = waypoints[i];
-      const cpY = (prev.y + curr.y) / 2;
-      // Alternate sides with sinuous curvature
-      const offsetX = (i % 2 === 0 ? 1 : -1) * 40; // Reduced offset for tighter line
-      d += ` C ${prev.x + offsetX} ${cpY}, ${curr.x - offsetX} ${cpY}, ${curr.x} ${curr.y}`;
-    }
-
-    streamPath.setAttribute('d', d);
-  }
-
-  if (streamSvg && streamPath) {
-    updateDataStream();
-    window.addEventListener('resize', updateDataStream);
-    window.addEventListener('scroll', () => {
-      // Throttled
-      requestAnimationFrame(updateDataStream);
-    });
-  }
 
   // ============================================
   // NAVIGATION — Active state & scroll
